@@ -217,7 +217,7 @@ def on_message(client, userdata, msg):
             supabase.table("sensor_data").insert(data).execute()
             print("✅ Sensor data inserted")
 
-            if "sound" in data and int(data["sound"]) > 4000:
+            if "sound" in data and int(data["sound"]) > 1000:
                 notif = {
                     "message": f"Sound level high: {data['sound']}",
                     "sensor": "sound",
@@ -237,7 +237,7 @@ def on_message(client, userdata, msg):
                 }
                 supabase.table("notifications").insert(notif).execute()
 
-            elif "humidity" in data and float(data["humidity"]) > 85.0:
+            elif "humidity" in data and float(data["humidity"]) > 90.0:
                 notif = {
                     "message": f"Humidity too high: {data['humidity']}%",
                     "sensor": "humidity",
@@ -451,5 +451,5 @@ def main():
         client.loop_stop()
         client.disconnect()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
